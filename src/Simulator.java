@@ -30,7 +30,7 @@ public class Simulator {
 
     void simulateDay() {
         simulateDynamicSites();
-        simulateStaticSites();
+        //simulateStaticSites();
         simulateHospitals();
         day++;
     }
@@ -78,7 +78,7 @@ public class Simulator {
     void populateDynamicSites(){
         Iterator<Person> iterator = population.iterator();
         for (int i = 0; i < country.numExtremelyLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(10000,10);
+            DynamicSite site = new DynamicSite(100000,50);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -86,7 +86,7 @@ public class Simulator {
         }
 
         for (int i = 0; i < country.numVeryLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(1000,10);
+            DynamicSite site = new DynamicSite(1000,25);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -94,7 +94,7 @@ public class Simulator {
 
         }
         for (int i = 0; i < country.numSmallDynamicsSites; i++) {
-            DynamicSite site = new DynamicSite(10,1);
+            DynamicSite site = new DynamicSite(10,3);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -102,7 +102,7 @@ public class Simulator {
 
         }
         for (int i = 0; i < country.numLargeDynamicSites; i++) {
-            DynamicSite site = new DynamicSite(1000,10);
+            DynamicSite site = new DynamicSite(100,10);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -113,7 +113,7 @@ public class Simulator {
     void populateStaticSites(){
         Iterator<Person> iterator = population.iterator();
         while(iterator.hasNext()){
-            StaticSite site = new StaticSite(4,4);
+            StaticSite site = new StaticSite(3,3);
             while (!site.isFull() && iterator.hasNext()) {
                 site.add(iterator.next());
             }
@@ -121,7 +121,7 @@ public class Simulator {
         }
         Iterator<Person> iterator2 = population.iterator();
         while(iterator2.hasNext()){
-            StaticSite site = new StaticSite(20,10);
+            StaticSite site = new StaticSite(10,5);
             while (!site.isFull() && iterator2.hasNext()) {
                 site.add(iterator2.next());
             }
