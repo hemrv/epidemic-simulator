@@ -6,8 +6,6 @@ public abstract class Site {
     int size;
     Random rg = new Random();
 
-    // I imagine that it is slowing down becuase nearly everyone is infected and it is just stuck in this while loop
-
     abstract void simulateSiteInfections(int day);
 
     public int countContagious(int day){

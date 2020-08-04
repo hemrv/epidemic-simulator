@@ -43,11 +43,6 @@ public class Person {
     }
 
     public boolean isContagious(int day) {
-
-//        if(immune || quarantined){
-//            return false;
-//        }
-
         if(immune || quarantined){
             return false;
         }

@@ -13,8 +13,6 @@ public class Simulator {
     int sizeOfPopulation;
     int day;
 
-
-    // Outputs
     int dailyCases;
     int dailyDeathCount;
 
@@ -30,7 +28,7 @@ public class Simulator {
 
     void simulateDay() {
         simulateDynamicSites();
-        //simulateStaticSites();
+        simulateStaticSites();
         simulateHospitals();
         day++;
     }
@@ -78,7 +76,7 @@ public class Simulator {
     void populateDynamicSites(){
         Iterator<Person> iterator = population.iterator();
         for (int i = 0; i < country.numExtremelyLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(100000,50);
+            DynamicSite site = new DynamicSite(10000,25);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -86,7 +84,7 @@ public class Simulator {
         }
 
         for (int i = 0; i < country.numVeryLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(1000,25);
+            DynamicSite site = new DynamicSite(1000,10);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -94,7 +92,7 @@ public class Simulator {
 
         }
         for (int i = 0; i < country.numSmallDynamicsSites; i++) {
-            DynamicSite site = new DynamicSite(10,3);
+            DynamicSite site = new DynamicSite(10,1);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }
@@ -102,7 +100,7 @@ public class Simulator {
 
         }
         for (int i = 0; i < country.numLargeDynamicSites; i++) {
-            DynamicSite site = new DynamicSite(100,10);
+            DynamicSite site = new DynamicSite(100,5);
             while(!site.isFull() && iterator.hasNext()){
                 site.add(iterator.next());
             }

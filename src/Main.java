@@ -7,7 +7,7 @@ public class Main {
         Simulator simulator = new Simulator(fakeLand,plague);
         int cumulativeDeaths = 0;
         int cumulativeCases  = 0;
-        for (int day = 0; day < 700; day++) {
+        for (int day = 0; day < 1000; day++) {
             simulator.simulateDay();
             cumulativeCases += simulator.dailyCases;
             cumulativeDeaths += simulator.dailyDeathCount;

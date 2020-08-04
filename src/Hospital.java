@@ -34,7 +34,7 @@ public class Hospital {
     }
 
     public void simulateQuarantine(Person person){
-        if(rg.nextDouble() < 0.7){
+        if(rg.nextDouble() < 0.5){
             person.quarantined = true;
         }
     }
