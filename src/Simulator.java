@@ -6,9 +6,9 @@ public class Simulator {
     Country country;
     Disease disease;
     Set<Person> population;
-    Set<StaticSite> households = new HashSet<>();
-    Set<StaticSite> workplaces = new HashSet<>();
+
     Set<DynamicSite> dailyDynamicSites = new HashSet<>();
+    Site mainSite;
     Hospital hospital;
     int sizeOfPopulation;
     int day;
@@ -20,91 +20,98 @@ public class Simulator {
     public Simulator(Country country, Disease disease) {
         this.country = country;
         this.disease = disease;
-        this.day  = 0;
+        this.day = 0;
         population = new HashSet<>();
-        hospital = new Hospital(population,disease);
+        hospital = new Hospital(population, disease);
         populateSimulator(country);
+        mainSite = new StaticSite(population,10);
     }
 
     void simulateDay() {
+        simulateMainSite();
         simulateDynamicSites();
-        simulateStaticSites();
         simulateHospitals();
         day++;
     }
 
-
+    void simulateMainSite(){
+        mainSite.simulateSiteInfections(day);
+    }
+    
     void simulateDynamicSites() {
         populateDynamicSites();
-        for (DynamicSite site: dailyDynamicSites) {
+        for (DynamicSite site : dailyDynamicSites) {
             site.simulateSiteInfections(day);
-        }
-    }
-
-    void simulateStaticSites() {
-        for (StaticSite household: households) {
-            household.simulateSiteInfections(day);
-        }
-        for (StaticSite workplace: workplaces) {
-            workplace.simulateSiteInfections(day);
         }
     }
 
     void simulateHospitals() {
         dailyCases = hospital.testPopulation(day);
         Set<Person> dailyDeaths = hospital.simulatePatients(day);
-        dailyDeathCount =  dailyDeaths.size();
-        for(Person deceased : dailyDeaths){
+        dailyDeathCount = dailyDeaths.size();
+        for (Person deceased : dailyDeaths) {
             population.remove(deceased);
         }
     }
 
-    void populateSimulator(Country country) {
+    private void populateSimulator(Country country) {
         this.sizeOfPopulation = country.sizeOfPopulation;
         for (int i = 0; i < country.numInfectedAtStart; i++) {
-            Person person = new Person(true,disease);
+            Person person = new Person(true, disease);
             population.add(person);
         }
         for (int i = 0; i < sizeOfPopulation - country.numInfectedAtStart; i++) {
-            Person person = new Person(false,disease);
+            Person person = new Person(false, disease);
             population.add(person);
         }
-        populateStaticSites();
-        populateDynamicSites();
     }
 
-    void populateDynamicSites(){
+    private void populateDynamicSites() {
         Iterator<Person> iterator = population.iterator();
-        for (int i = 0; i < country.numExtremelyLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(10000,25);
-            while(!site.isFull() && iterator.hasNext()){
+        for (int i = 0; i < country.numExtremelyLargeDynamicSites; i++) {
+            DynamicSite site = new DynamicSite(10000, 10);//40
+            while (!site.isFull() && iterator.hasNext()) {
                 site.add(iterator.next());
             }
             dailyDynamicSites.add(site);
         }
 
-        for (int i = 0; i < country.numVeryLargeDynamicSites ; i++) {
-            DynamicSite site = new DynamicSite(1000,10);
-            while(!site.isFull() && iterator.hasNext()){
+        for (int i = 0; i < country.numVeryLargeDynamicSites; i++) {
+            DynamicSite site = new DynamicSite(1000, 5);//
+            while (!site.isFull() && iterator.hasNext()) {
                 site.add(iterator.next());
             }
             dailyDynamicSites.add(site);
 
         }
         for (int i = 0; i < country.numSmallDynamicsSites; i++) {
-            DynamicSite site = new DynamicSite(10,1);
-            while(!site.isFull() && iterator.hasNext()){
+            DynamicSite site = new DynamicSite(10, 1);//3
+            while (!site.isFull() && iterator.hasNext()) {
                 site.add(iterator.next());
             }
             dailyDynamicSites.add(site);
 
         }
         for (int i = 0; i < country.numLargeDynamicSites; i++) {
-            DynamicSite site = new DynamicSite(100,5);
-            while(!site.isFull() && iterator.hasNext()){
+            DynamicSite site = new DynamicSite(100, 2);//
+            while (!site.isFull() && iterator.hasNext()) {
                 site.add(iterator.next());
             }
             dailyDynamicSites.add(site);
+        }
+    }
+
+
+    /*
+      Set<StaticSite> households = new HashSet<>();
+      Set<StaticSite> workplaces = new HashSet<>();
+
+        void simulateStaticSites() {
+        for (StaticSite household: households) {
+            household.simulateSiteInfections(day);
+        }
+        for (StaticSite workplace: workplaces) {
+            workplace.simulateSiteInfections(day);
         }
     }
 
@@ -126,6 +133,9 @@ public class Simulator {
             workplaces.add(site);
         }
     }
+
+
+     */
 
 }
 

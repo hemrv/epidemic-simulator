@@ -35,7 +35,7 @@ public class Person {
         if (rand < disease.dailyInfectionRate) {
             infectedDate = day;
             infected = true;
-            //System.out.println("infected someone");
+            recoveryDate = infectedDate + disease.incubationPeriod + disease.recoveryPeriod;
             if (rand < disease.hospitalizationRate) {
                 hospitalizedDate = day + disease.incubationPeriod;
             }

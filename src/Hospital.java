@@ -8,6 +8,7 @@ public class Hospital {
     Set<Person> patients;
     Random rg = new Random();
     Disease disease;
+    int day;
 
     public Hospital(Set<Person> population, Disease disease) {
         this.population = population;
@@ -18,6 +19,7 @@ public class Hospital {
 
     public int testPopulation(int day) {
         int dailyCases = 0;
+        this.day = day;
         for (Person person : population) {
             if (person.infected && person.contagious && !person.testedPositive) {
                 dailyCases++;
@@ -34,7 +36,10 @@ public class Hospital {
     }
 
     public void simulateQuarantine(Person person){
-        if(rg.nextDouble() < 0.5){
+        if(day < disease.incubationPeriod * 2){
+            return;
+        }
+        if(rg.nextDouble() < 0.8){
             person.quarantined = true;
         }
     }
