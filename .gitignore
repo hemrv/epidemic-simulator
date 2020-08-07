@@ -1,6 +1,9 @@
 #ignore temp files
 *~
 
+#idea file
+.idea/
+
 #ignore pdf files (just keep source files)
 *.pdf
 
@@ -24,6 +27,7 @@
 *.backup
 *.kate-swp
 *.swp
+*.iml
 
 #eclipsey stuff
 .classpath
