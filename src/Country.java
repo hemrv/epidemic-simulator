@@ -1,10 +1,10 @@
 public class Country {
-    int sizeOfPopulation;
-    int numExtremelyLargeDynamicSites;
-    int numVeryLargeDynamicSites;
-    int numLargeDynamicSites;
-    int numSmallDynamicsSites;
-    int numInfectedAtStart;
+    final int sizeOfPopulation;
+    final int numExtremelyLargeDynamicSites;
+    final int numVeryLargeDynamicSites;
+    final int numLargeDynamicSites;
+    final int numSmallDynamicsSites;
+    final int numInfectedAtStart;
 
     public Country(int sizeOfPopulation, int numExtremelyLargeDynamicSites, int numVeryLargeDynamicSites,
                    int numLargeDynamicSites, int numSmallDynamicsSites, int numInfectedAtStart) {

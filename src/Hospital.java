@@ -2,45 +2,48 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 public class Hospital {
-    Set<Person> population;
-    Set<Person> patients;
-    Random rg = new Random();
-    Disease disease;
-    int day;
+    final private Set<Person> population;
+    final private Set<Person> patients;
+    final private Random rg = new Random();
+    final private Disease disease;
+    private int day;
+    final private double lockDownFactor;
 
-    public Hospital(Set<Person> population, Disease disease) {
+
+    public Hospital(Set<Person> population, Disease disease, double lockDownFactor) {
         this.population = population;
         patients = new HashSet<>();
         this.disease = disease;
+        this.lockDownFactor = lockDownFactor;
     }
 
 
-    public int testPopulation(int day) {
+     int testPopulation(int day) {
         int dailyCases = 0;
         this.day = day;
         for (Person person : population) {
-            if (person.infected && person.contagious && !person.testedPositive) {
+            if (person.isInfected() && person.isContagious() && !person.hasTestedPositive()) {
                 dailyCases++;
-                person.testedPositive = true;
+                person.setTestedPositive();
                 simulateQuarantine(person);
             }
-            if (person.hospitalizedDate != -1 && person.hospitalizedDate == day) {
+            if (person.getHospitalizedDate() != -1 && person.getHospitalizedDate() == day) {
                 patients.add(person);
-                //person.quarantined = true;
             }
 
         }
         return dailyCases;
     }
 
-    public void simulateQuarantine(Person person){
+    private void simulateQuarantine(Person person){
         if(day < disease.incubationPeriod * 2){
             return;
         }
-        if(rg.nextDouble() < 0.8){
-            person.quarantined = true;
+        if(rg.nextDouble() < lockDownFactor){
+            person.setQuarantined(true);
         }
     }
 
@@ -52,7 +55,7 @@ public class Hospital {
             if (rg.nextDouble() < disease.dailyDeathRate) {
                 iterator.remove();
                 dailyDeaths.add(patient);
-            } else if(patient.recoveryDate == day) {
+            } else if(patient.getRecoveryDate() == day) {
                 patient.recovered();
                 iterator.remove();
 

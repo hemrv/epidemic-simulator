@@ -1,23 +1,27 @@
 
 public class Main {
     public static void main(String[] args) {
-        Country fakeLand = new Country(100000,1,1,
-                1,1,1);
+        long start = System.currentTimeMillis();
+        Country fakeLand = new Country(100000,1,2,
+                5,10,1);
         Disease plague  = new Disease(0.1,7,0.3,0.1,14);
-        Simulator simulator = new Simulator(fakeLand,plague);
+        Simulator simulator = new Simulator(fakeLand,plague,0);
         int cumulativeDeaths = 0;
         int cumulativeCases  = 0;
-        for (int day = 0; day < 1000; day++) {
+        for (int day = 0; day < 500; day++) {
             simulator.simulateDay();
-            cumulativeCases += simulator.dailyCases;
-            cumulativeDeaths += simulator.dailyDeathCount;
-            System.out.println(simulator.dailyCases);
+            cumulativeCases += simulator.getDailyCases();
+            cumulativeDeaths += simulator.getDailyDeathCount();
+            System.out.println(cumulativeDeaths);
 //            System.out.println("Day " + day + " deaths = " + simulator.dailyDeathCount);
 //            System.out.println("Day " + day + " cases =  " + simulator.dailyCases);
 //            System.out.println("Day " + day + " total deaths = " + cumulativeDeaths);
 //            System.out.println("Day " + day + " total cases =  " + cumulativeCases);
 //            System.out.println("---------------------------------------------------");
         }
+        simulator.waitForTermination();
+        long end = System.currentTimeMillis();
+        System.out.println("Milliseconds runtime  - " + (end - start));
 
     }
 }

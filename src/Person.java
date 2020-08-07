@@ -1,22 +1,20 @@
-public class Person {
-    Disease disease;
-    int age;
+public class Person implements Runnable {
+    final private Disease disease;
 
-    int hospitalizedDate;
-    int infectedDate;
-    int recoveryDate;
+    private int hospitalizedDate;
+    private int infectedDate;
+    private int recoveryDate;
 
-    boolean infected;
-    boolean contagious;
-    boolean testedPositive;
-    boolean quarantined;
-    boolean immune;
-    boolean dead;
+    private boolean infected;
+    private boolean contagious;
+    private boolean testedPositive;
+    private boolean quarantined;
+    private boolean immune;
+
 
 
     public Person(boolean infected,Disease disease) {
         this.disease = disease;
-        //this.age = age;
         this.hospitalizedDate = -1;
         infectedDate = infected ? 0 : -1;
         this.recoveryDate = -1;
@@ -24,7 +22,6 @@ public class Person {
         this.contagious = false;
         this.testedPositive = false;
         this.immune = false;
-        this.dead = false;
     }
 
 
@@ -62,6 +59,40 @@ public class Person {
     }
 
 
+    public int getHospitalizedDate() {
+        return hospitalizedDate;
+    }
+
+    public int getRecoveryDate() {
+        return recoveryDate;
+    }
+
+    public boolean hasTestedPositive() {
+        return testedPositive;
+    }
+    public void setTestedPositive() {
+        testedPositive = true;
+    }
+
+    public void setQuarantined(boolean quarantined) {
+        this.quarantined = quarantined;
+    }
+
+    public boolean isQuarantined() {
+        return quarantined;
+    }
+
+    public boolean isInfected() {
+        return infected;
+    }
+
+    public boolean isContagious() {
+        return contagious;
+    }
+
+    @Override
+    public void run() {
+
+    }
 }
-// If over the 14 days they are contagious, to make it x % percent likley
-// If you were exposed to that person for 14 days straight y% or (100 - y) * 14 = 100 - x
+
