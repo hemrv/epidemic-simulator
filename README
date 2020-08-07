@@ -1,1 +1,2 @@
-this is my first push 
+This is a computer model meant to simulate how a an epidemic may develop within a population.
+The user is able to modify variables concerning the modelled population and the diseases and simulate how varying level of a "lockdown factor" will affect how the disease propopgates through the population.
